@@ -3,13 +3,14 @@
 <mapper namespace="club.janna.acaqj.mapper.AreaMapper">
   <resultMap id="BaseResultMap" type="club.janna.acaqj.pojo.Area">
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="level" jdbcType="SMALLINT" property="level" />
     <result column="code" jdbcType="VARCHAR" property="code" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="pcode" jdbcType="VARCHAR" property="pcode" />
     <result column="origin" jdbcType="VARCHAR" property="origin" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, code, name, pcode, origin
+    id, level, code, name, pcode, origin
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -22,16 +23,21 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="club.janna.acaqj.pojo.Area">
-    insert into area (id, code, name, 
-      pcode, origin)
-    values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{pcode,jdbcType=VARCHAR}, #{origin,jdbcType=VARCHAR})
+    insert into area (id, level, code, 
+      name, pcode, origin
+      )
+    values (#{id,jdbcType=INTEGER}, #{level,jdbcType=SMALLINT}, #{code,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{pcode,jdbcType=VARCHAR}, #{origin,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="club.janna.acaqj.pojo.Area">
     insert into area
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
+      </if>
+      <if test="level != null">
+        level,
       </if>
       <if test="code != null">
         code,
@@ -50,6 +56,9 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
+      <if test="level != null">
+        #{level,jdbcType=SMALLINT},
+      </if>
       <if test="code != null">
         #{code,jdbcType=VARCHAR},
       </if>
@@ -67,6 +76,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="club.janna.acaqj.pojo.Area">
     update area
     <set>
+      <if test="level != null">
+        level = #{level,jdbcType=SMALLINT},
+      </if>
       <if test="code != null">
         code = #{code,jdbcType=VARCHAR},
       </if>
@@ -84,7 +96,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="club.janna.acaqj.pojo.Area">
     update area
-    set code = #{code,jdbcType=VARCHAR},
+    set level = #{level,jdbcType=SMALLINT},
+      code = #{code,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
       pcode = #{pcode,jdbcType=VARCHAR},
       origin = #{origin,jdbcType=VARCHAR}
