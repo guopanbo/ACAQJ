@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+">
+
+	<!-- 数据库连接池 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		  destroy-method="close">
+		<property name="url" value="${url}" />
+		<property name="username" value="${username}" />
+		<property name="password" value="${password}" />
+		<property name="driverClassName" value="${driver}" />
+		<!-- 最大并发连接数 -->
+		<property name="maxActive" value="${maxActive}" />
+		<!-- 最小空闲连接数 -->
+		<property name="minIdle" value="${minIdle}" />
+		<!-- 用于显示数据源监控中的sql语句监控 -->
+		<property name="filters" value="stat" />
+	</bean>
+
+	<!-- 配置sqlsessionFactory -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:mybatis/mybatisConfig.xml"></property>
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="mapperLocations">
+			<list>
+				<value>classpath:mappers/**/*Mapper.xml</value>
+			</list>
+		</property>
+		<property name="typeAliasesPackage" value="club.janna.acaqj.pojo" />
+	</bean>
+
+	<!-- 配置扫描包，加载mapper代理对象 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="club.janna.acaqj.mapper"></property>
+	</bean>
+	
+</beans>
