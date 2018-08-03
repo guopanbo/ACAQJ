@@ -2,6 +2,7 @@ package club.janna.acaqj.collect;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * @author guopanbo
@@ -44,5 +45,11 @@ public class Executor {
         if(executorService == null)
             throw new RuntimeException("thread pool is null");
         executorService.shutdown();
+    }
+
+    public ThreadPoolExecutor getThreadPoolExecutor() {
+        if(executorService == null)
+            throw new RuntimeException("thread pool is null");
+        return (ThreadPoolExecutor) executorService;
     }
 }
