@@ -1,6 +1,8 @@
 package club.janna.acaqj.pojo;
 
-public class Area {
+import java.io.Serializable;
+
+public class Area implements Serializable {
     private Integer id;
 
     private Integer level;

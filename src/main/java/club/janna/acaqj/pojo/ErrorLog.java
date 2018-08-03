@@ -1,6 +1,8 @@
 package club.janna.acaqj.pojo;
 
-public class ErrorLog {
+import java.io.Serializable;
+
+public class ErrorLog implements Serializable {
     private Integer id;
 
     private String msg;
