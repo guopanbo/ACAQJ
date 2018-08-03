@@ -3,7 +3,8 @@ package club.janna.acaqj.bootstrap;
 import club.janna.acaqj.collect.Collector;
 import club.janna.acaqj.collect.Executor;
 import club.janna.acaqj.config.Configure;
-import club.janna.acaqj.util.ConfigureProvider;
+import club.janna.acaqj.mq.Processor;
+import club.janna.acaqj.provider.ConfigureProvider;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.ThreadPoolExecutor;
@@ -21,6 +22,8 @@ public class Bootstrap {
         Executor.getInstance().execute(new Collector(configure.getRoot(), 1, null));
 //        Executor.getInstance().shutdown();
         ThreadPoolExecutor executor = Executor.getInstance().getThreadPoolExecutor();
+        //运行rabbit mq 处理机
+        Executor.getInstance().execute(new Processor());
         while(true) {
             try {
                 Thread.sleep(3 * 1000);
