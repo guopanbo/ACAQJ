@@ -3,7 +3,7 @@ package club.janna.acaqj.pojo;
 public class Area {
     private Integer id;
 
-    private Short level;
+    private Integer level;
 
     private String code;
 
@@ -21,11 +21,11 @@ public class Area {
         this.id = id;
     }
 
-    public Short getLevel() {
+    public Integer getLevel() {
         return level;
     }
 
-    public void setLevel(Short level) {
+    public void setLevel(Integer level) {
         this.level = level;
     }
 
