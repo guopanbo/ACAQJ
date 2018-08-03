@@ -1,4 +1,4 @@
-package club.janna.acaqj.model;
+package club.janna.acaqj.config;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,4 +13,7 @@ import lombok.Setter;
 @Setter
 public class Configure {
     private String root;
+    private RabbitMQ rabbitMQ;
+    private String areaQueueName;
+    private String errorLogQueueName;
 }
