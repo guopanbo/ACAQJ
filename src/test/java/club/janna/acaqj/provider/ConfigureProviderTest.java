@@ -1,6 +1,7 @@
-package club.janna.acaqj.util;
+package club.janna.acaqj.provider;
 
 import club.janna.acaqj.config.Configure;
+import club.janna.acaqj.provider.ConfigureProvider;
 
 /**
  * @author guopanbo
