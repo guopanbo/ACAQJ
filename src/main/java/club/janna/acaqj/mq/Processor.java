@@ -2,8 +2,11 @@ package club.janna.acaqj.mq;
 
 import club.janna.acaqj.pojo.Area;
 import club.janna.acaqj.pojo.ErrorLog;
+import club.janna.acaqj.provider.ApplicationProvider;
 import club.janna.acaqj.provider.RabbitMQProvider;
 import club.janna.acaqj.provider.ConfigureProvider;
+import club.janna.acaqj.service.AreaService;
+import club.janna.acaqj.service.ErrorLogService;
 import club.janna.acaqj.util.SerializeUtil;
 import com.rabbitmq.client.*;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +24,9 @@ import java.io.Serializable;
 public class Processor implements Runnable, Consumer {
     private Connection connection;
     private Channel channel;
+
+    private AreaService areaService = ApplicationProvider.getInstance().getBean(AreaService.class);
+    private ErrorLogService errorLogService = ApplicationProvider.getInstance().getBean(ErrorLogService.class);
 
     public Processor() {
         try {
@@ -89,10 +95,12 @@ public class Processor implements Runnable, Consumer {
         //存储
         if(serlz instanceof Area) {
             Area area = (Area) serlz;
-            log.info(area.getName());
+            log.debug("save area[code:{}, name:{}]", area.getCode(), area.getName());
+            areaService.insert(area);
         } else if(serlz instanceof ErrorLog) {
             ErrorLog errorLog = (ErrorLog) serlz;
-            log.info(errorLog.getMsg());
+            log.debug("save error log [{}, {}]", errorLog.getMsg(), errorLog.getNote());
+            errorLogService.insert(errorLog);
         }
     }
 }
