@@ -1,4 +1,4 @@
-# 2017年统计局行政区划代码
+# 2017年统计局行政区划代码根节点
 root: http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2017/
 
 # rabbit mq
@@ -12,3 +12,8 @@ rabbitMQ:
 # 队列名称
 areaQueueName: AREA_QUEUE
 errorLogQueueName: ERROR_LOG_QUEUE
+
+# 服务器不可用时重试间隔时间 （毫秒）
+tryAgainIntervalTime: 30000
+# 服务器不可用时重试次数
+tryAgainNum: 3
