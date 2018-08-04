@@ -9,6 +9,12 @@ public class ErrorLog implements Serializable {
 
     private String note;
 
+    private Integer level;
+
+    private Integer pcode;
+
+    private Integer errorLevel;
+
     public Integer getId() {
         return id;
     }
@@ -31,5 +37,29 @@ public class ErrorLog implements Serializable {
 
     public void setNote(String note) {
         this.note = note == null ? null : note.trim();
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
+    public Integer getPcode() {
+        return pcode;
+    }
+
+    public void setPcode(Integer pcode) {
+        this.pcode = pcode;
+    }
+
+    public Integer getErrorLevel() {
+        return errorLevel;
+    }
+
+    public void setErrorLevel(Integer errorLevel) {
+        this.errorLevel = errorLevel;
     }
 }
