@@ -97,7 +97,7 @@ public class Collector implements Runnable {
                     Element element = iterable.next();
 //                    Element element = elements.get(0);
                     Area area = new Area();
-                    area.setCode("0");
+                    area.setCode(element.text());
                     area.setName(element.text());
                     area.setOrigin(url);
                     area.setLevel(level);
