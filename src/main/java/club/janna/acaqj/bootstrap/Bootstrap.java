@@ -23,7 +23,7 @@ public class Bootstrap {
 //        Executor.getInstance().shutdown();
         ThreadPoolExecutor executor = Executor.getInstance().getThreadPoolExecutor();
         //运行rabbit mq 处理机
-        Executor.getInstance().execute(new Processor());
+        new Thread(new Processor()).start();
         while(true) {
             try {
                 Thread.sleep(3 * 1000);
