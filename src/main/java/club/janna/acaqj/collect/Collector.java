@@ -4,8 +4,10 @@ package club.janna.acaqj.collect;
 import club.janna.acaqj.mq.Sender;
 import club.janna.acaqj.pojo.Area;
 import club.janna.acaqj.pojo.ErrorLog;
+import club.janna.acaqj.provider.ConfigureProvider;
 import club.janna.acaqj.util.UrlUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -42,7 +44,27 @@ public class Collector implements Runnable {
         try {
             doc = Jsoup.connect(url).get();
         } catch (IOException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
+            log.error(e.getMessage());
+            Integer tryAgainNum = ConfigureProvider.getConfigure().getTryAgainNum();
+            Long tryAgainIntervalTime = ConfigureProvider.getConfigure().getTryAgainIntervalTime();
+            if(tryAgainNum != null && tryAgainNum > 0) {
+                log.debug("url[{}]请求失败，准备进行重试", url);
+                for (int i = 0; i < tryAgainNum; i++) {
+                    try {
+                        Thread.sleep(tryAgainIntervalTime);
+                    } catch (InterruptedException e3) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        doc = Jsoup.connect(url).get();
+                    } catch (IOException e2) {
+//                        e2.printStackTrace();
+                        log.error(e2.getMessage());
+                        log.error("第{}[/{}]次重试请求失败, url[{}]", i, tryAgainNum, url);
+                    }
+                }
+            }
         }
         if(doc == null) {
             log.error("load page error, url[{}]", url);
@@ -86,10 +108,10 @@ public class Collector implements Runnable {
             case 2:
                 elements = doc.select("body > table:nth-child(3) > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr.citytr");
                 iterable = elements.iterator();
-//                while (iterable.hasNext()) {
-                if (iterable.hasNext()) {
-//                    Element element = iterable.next();
-                    Element element = elements.get(0);
+                while (iterable.hasNext()) {
+//                if (iterable.hasNext()) {
+                    Element element = iterable.next();
+//                    Element element = elements.get(0);
                     Elements children = element.select("td > a");
                     if(children.size() == 2) {
                         Area area = new Area();
@@ -128,10 +150,10 @@ public class Collector implements Runnable {
             case 3:
                 elements = doc.select("body > table:nth-child(3) > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr.countytr");
                 iterable = elements.iterator();
-//                while (iterable.hasNext()) {
-                if (iterable.hasNext()) {
-//                    Element element = iterable.next();
-                    Element element = elements.get(0);
+                while (iterable.hasNext()) {
+//                if (iterable.hasNext()) {
+                    Element element = iterable.next();
+//                    Element element = elements.get(0);
                     Elements children = element.select("td > a");
                     if(children.size() == 2) {
                         Area area = new Area();
@@ -170,10 +192,10 @@ public class Collector implements Runnable {
             case 4:
                 elements = doc.select("body > table:nth-child(3) > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr.towntr");
                 iterable = elements.iterator();
-//                while (iterable.hasNext()) {
-                if (iterable.hasNext()) {
-//                    Element element = iterable.next();
-                    Element element = elements.get(0);
+                while (iterable.hasNext()) {
+//                if (iterable.hasNext()) {
+                    Element element = iterable.next();
+//                    Element element = elements.get(0);
                     Elements children = element.select("td > a");
                     if(children.size() == 2) {
                         Area area = new Area();
@@ -212,10 +234,10 @@ public class Collector implements Runnable {
             case 5:
                 elements = doc.select("body > table:nth-child(3) > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr.villagetr");
                 iterable = elements.iterator();
-//                while (iterable.hasNext()) {
-                if (iterable.hasNext()) {
-//                    Element element = iterable.next();
-                    Element element = elements.get(0);
+                while (iterable.hasNext()) {
+//                if (iterable.hasNext()) {
+                    Element element = iterable.next();
+//                    Element element = elements.get(0);
                     Elements children = element.select("td");
                     if(children.size() == 3) {
                         Area area = new Area();
