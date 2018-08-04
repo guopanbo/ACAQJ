@@ -18,6 +18,19 @@
     from error_log
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="getByTotal" parameterType="Integer" resultType="club.janna.acaqj.pojo.ErrorLog">
+    select
+    <include refid="Base_Column_List" />
+    from error_log
+    limit #{total}
+  </select>
+  <delete id="deleteByIds" parameterType="Map">
+    delete from error_log
+    where id in
+      <foreach collection="ids" open="(" close=")" separator="," item="id">
+        #{id}
+      </foreach>
+  </delete>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from error_log
     where id = #{id,jdbcType=INTEGER}
@@ -100,108 +113,6 @@
       note = #{note,jdbcType=VARCHAR},
       level = #{level,jdbcType=INTEGER},
       pcode = #{pcode,jdbcType=VARCHAR},
-      error_level = #{errorLevel,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <resultMap id="BaseResultMap" type="club.janna.acaqj.pojo.ErrorLog">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="msg" jdbcType="VARCHAR" property="msg" />
-    <result column="note" jdbcType="VARCHAR" property="note" />
-    <result column="level" jdbcType="INTEGER" property="level" />
-    <result column="pcode" jdbcType="INTEGER" property="pcode" />
-    <result column="error_level" jdbcType="INTEGER" property="errorLevel" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, msg, note, level, pcode, error_level
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from error_log
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from error_log
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="club.janna.acaqj.pojo.ErrorLog">
-    insert into error_log (id, msg, note, 
-      level, pcode, error_level
-      )
-    values (#{id,jdbcType=INTEGER}, #{msg,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}, 
-      #{level,jdbcType=INTEGER}, #{pcode,jdbcType=INTEGER}, #{errorLevel,jdbcType=INTEGER}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="club.janna.acaqj.pojo.ErrorLog">
-    insert into error_log
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="msg != null">
-        msg,
-      </if>
-      <if test="note != null">
-        note,
-      </if>
-      <if test="level != null">
-        level,
-      </if>
-      <if test="pcode != null">
-        pcode,
-      </if>
-      <if test="errorLevel != null">
-        error_level,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="msg != null">
-        #{msg,jdbcType=VARCHAR},
-      </if>
-      <if test="note != null">
-        #{note,jdbcType=VARCHAR},
-      </if>
-      <if test="level != null">
-        #{level,jdbcType=INTEGER},
-      </if>
-      <if test="pcode != null">
-        #{pcode,jdbcType=INTEGER},
-      </if>
-      <if test="errorLevel != null">
-        #{errorLevel,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="club.janna.acaqj.pojo.ErrorLog">
-    update error_log
-    <set>
-      <if test="msg != null">
-        msg = #{msg,jdbcType=VARCHAR},
-      </if>
-      <if test="note != null">
-        note = #{note,jdbcType=VARCHAR},
-      </if>
-      <if test="level != null">
-        level = #{level,jdbcType=INTEGER},
-      </if>
-      <if test="pcode != null">
-        pcode = #{pcode,jdbcType=INTEGER},
-      </if>
-      <if test="errorLevel != null">
-        error_level = #{errorLevel,jdbcType=INTEGER},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="club.janna.acaqj.pojo.ErrorLog">
-    update error_log
-    set msg = #{msg,jdbcType=VARCHAR},
-      note = #{note,jdbcType=VARCHAR},
-      level = #{level,jdbcType=INTEGER},
-      pcode = #{pcode,jdbcType=INTEGER},
       error_level = #{errorLevel,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>

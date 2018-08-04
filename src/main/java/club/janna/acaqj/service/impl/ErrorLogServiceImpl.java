@@ -6,6 +6,10 @@ import club.janna.acaqj.service.ErrorLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * @Auther: guopanbo
  * @Date: 2018/8/2 20:36
@@ -19,5 +23,19 @@ public class ErrorLogServiceImpl implements ErrorLogService {
 
     public int insert(ErrorLog entity) {
         return errorLogMapper.insert(entity);
+    }
+
+    @Override
+    public List<ErrorLog> getByTotal(Integer total) {
+        return errorLogMapper.getByTotal(total);
+    }
+
+    @Override
+    public void deleteByIds(List<Integer> ids) {
+        if(ids == null || ids.size() == 0)
+            return;
+        Map<String, Object> params = new HashMap<>();
+        params.put("ids", ids);
+        errorLogMapper.deleteByIds(params);
     }
 }
