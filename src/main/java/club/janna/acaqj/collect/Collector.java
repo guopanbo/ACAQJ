@@ -7,7 +7,6 @@ import club.janna.acaqj.pojo.ErrorLog;
 import club.janna.acaqj.provider.ConfigureProvider;
 import club.janna.acaqj.util.UrlUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -71,6 +70,9 @@ public class Collector implements Runnable {
             ErrorLog errorLog = new ErrorLog();
             errorLog.setMsg("load page error");
             errorLog.setNote(url);
+            errorLog.setLevel(level);
+            errorLog.setPcode(pcode);
+            errorLog.setErrorLevel(1);
             //放入rabbit mq
             Sender.getInstance().sendMessage(errorLog);
         }
@@ -141,6 +143,9 @@ public class Collector implements Runnable {
                             ErrorLog errorLog = new ErrorLog();
                             errorLog.setMsg("parse error, children is not 2 or 3");
                             errorLog.setNote(url);
+                            errorLog.setLevel(level);
+                            errorLog.setPcode(pcode);
+                            errorLog.setErrorLevel(2);
                             //放入rabbit mq
                             Sender.getInstance().sendMessage(errorLog);
                         }
@@ -183,6 +188,9 @@ public class Collector implements Runnable {
                             ErrorLog errorLog = new ErrorLog();
                             errorLog.setMsg("parse error, children is not 2 or 3");
                             errorLog.setNote(url);
+                            errorLog.setLevel(level);
+                            errorLog.setPcode(pcode);
+                            errorLog.setErrorLevel(2);
                             //放入rabbit mq
                             Sender.getInstance().sendMessage(errorLog);
                         }
@@ -225,6 +233,9 @@ public class Collector implements Runnable {
                             ErrorLog errorLog = new ErrorLog();
                             errorLog.setMsg("parse error, children is not 2 or 3");
                             errorLog.setNote(url);
+                            errorLog.setLevel(level);
+                            errorLog.setPcode(pcode);
+                            errorLog.setErrorLevel(2);
                             //放入rabbit mq
                             Sender.getInstance().sendMessage(errorLog);
                         }
@@ -254,6 +265,9 @@ public class Collector implements Runnable {
                         ErrorLog errorLog = new ErrorLog();
                         errorLog.setMsg("parse error, children is or 3");
                         errorLog.setNote(url);
+                        errorLog.setLevel(level);
+                        errorLog.setPcode(pcode);
+                        errorLog.setErrorLevel(2);
                         //放入rabbit mq
                         Sender.getInstance().sendMessage(errorLog);
                     }
