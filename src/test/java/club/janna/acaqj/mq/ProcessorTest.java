@@ -8,6 +8,7 @@ package club.janna.acaqj.mq;
  */
 public class ProcessorTest {
     public static void main(String[] args) {
-        new Thread(new Processor()).start();
+        for(int i = 0;i < 20;i ++)
+            new Thread(new Processor()).start();
     }
 }
