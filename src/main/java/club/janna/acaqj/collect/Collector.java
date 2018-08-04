@@ -84,8 +84,10 @@ public class Collector implements Runnable {
      */
     private void parse() {
         Document doc = load();
-        if(doc == null)
-            throw new RuntimeException("Document is null");
+        if(doc == null) {
+            log.error("document is null");
+            return;
+        }
         Elements elements;
         Iterator<Element> iterable;
         switch (level) {
