@@ -1,5 +1,7 @@
 package club.janna.acaqj.collect;
 
+import club.janna.acaqj.provider.ConfigureProvider;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -16,7 +18,7 @@ public class Executor {
 
     private Executor() {
         //初始化线程池
-        executorService = Executors.newCachedThreadPool();
+        executorService = Executors.newFixedThreadPool(ConfigureProvider.getConfigure().getCollectThreadMaxActive());
     }
 
     public static Executor getInstance() {

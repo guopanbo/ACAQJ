@@ -19,6 +19,11 @@ public class Configure {
     private String root;
 
     /**
+     * 数据采集器线程（个）
+     */
+    private Integer collectThreadMaxActive;
+
+    /**
      * rabbit mq
      */
     private RabbitMQ rabbitMQ;

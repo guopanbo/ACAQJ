@@ -9,6 +9,9 @@ rabbitMQ:
   password: guopanbo
   vhost: /
 
+# 数据采集器线程（个）
+collectThreadMaxActive: 5000
+
 # 队列名称
 areaQueueName: AREA_QUEUE
 errorLogQueueName: ERROR_LOG_QUEUE
