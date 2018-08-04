@@ -1,6 +1,7 @@
 package club.janna.acaqj.bootstrap;
 
 import club.janna.acaqj.collect.Collector;
+import club.janna.acaqj.collect.ErrorHandler;
 import club.janna.acaqj.collect.Executor;
 import club.janna.acaqj.config.Configure;
 import club.janna.acaqj.mq.Processor;
@@ -24,6 +25,8 @@ public class Bootstrap {
         ThreadPoolExecutor executor = Executor.getInstance().getThreadPoolExecutor();
         //运行rabbit mq 处理机
         new Thread(new Processor()).start();
+        //运行错误处理器
+        new Thread(new ErrorHandler()).start();
         while(true) {
             try {
                 Thread.sleep(3 * 1000);

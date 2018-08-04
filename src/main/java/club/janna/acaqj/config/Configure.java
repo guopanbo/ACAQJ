@@ -37,4 +37,14 @@ public class Configure {
      * 服务器不可用时重试次数
      */
     private Integer tryAgainNum;
+
+    /**
+     * 单次处理错误的个数上限（个）
+     */
+    private Integer errorHandleTotalOfOnce;
+
+    /**
+     * 处理错误闲时等待时间（毫秒）
+     */
+    private Long errorHandleHandleWaitTimeForIdle;
 }
