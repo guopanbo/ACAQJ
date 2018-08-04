@@ -11,7 +11,7 @@ public class ErrorLog implements Serializable {
 
     private Integer level;
 
-    private Integer pcode;
+    private String pcode;
 
     private Integer errorLevel;
 
@@ -47,12 +47,12 @@ public class ErrorLog implements Serializable {
         this.level = level;
     }
 
-    public Integer getPcode() {
+    public String getPcode() {
         return pcode;
     }
 
-    public void setPcode(Integer pcode) {
-        this.pcode = pcode;
+    public void setPcode(String pcode) {
+        this.pcode = pcode == null ? null : pcode.trim();
     }
 
     public Integer getErrorLevel() {
