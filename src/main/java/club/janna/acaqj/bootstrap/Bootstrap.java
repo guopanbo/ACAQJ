@@ -8,6 +8,8 @@ import club.janna.acaqj.mq.Processor;
 import club.janna.acaqj.provider.ConfigureProvider;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
 
@@ -23,10 +25,13 @@ public class Bootstrap {
         Executor.getInstance().execute(new Collector(configure.getRoot(), 1, null));
 //        Executor.getInstance().shutdown();
         ThreadPoolExecutor executor = Executor.getInstance().getThreadPoolExecutor();
+        ExecutorService executorService = Executors.newCachedThreadPool();
         //运行rabbit mq 处理机
-        new Thread(new Processor()).start();
+        for(int i = 0; i < configure.getProcessorThreadNum(); i ++)
+            executorService.execute(new Processor());
         //运行错误处理器
-        new Thread(new ErrorHandler()).start();
+        for(int i = 0; i < configure.getErrorHandlerThreadNum(); i ++)
+            executorService.execute(new ErrorHandler());
         while(true) {
             try {
                 Thread.sleep(3 * 1000);

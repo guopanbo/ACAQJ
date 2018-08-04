@@ -19,9 +19,19 @@ public class Configure {
     private String root;
 
     /**
-     * 数据采集器线程（个）
+     * 数据采集器线程最大活跃线程数（个）
      */
     private Integer collectThreadMaxActive;
+
+    /**
+     * mq 处理器线程启动数（个）
+     */
+    private Integer processorThreadNum;
+
+    /**
+     * 错误处理器线程启动数（个）
+     */
+    private Integer errorHandlerThreadNum;
 
     /**
      * rabbit mq

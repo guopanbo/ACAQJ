@@ -9,8 +9,12 @@ rabbitMQ:
   password: guopanbo
   vhost: /
 
-# 数据采集器线程（个）
+# 数据采集器线程最大活跃线程数（个）
 collectThreadMaxActive: 5000
+# mq 处理器线程启动数（个）
+processorThreadNum: 10
+# 错误处理器线程启动数（个）
+errorHandlerThreadNum: 1
 
 # 队列名称
 areaQueueName: AREA_QUEUE
